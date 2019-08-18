@@ -1,0 +1,26 @@
+<div class="login-form-wrap">
+    <div class="login-form">
+        <div class="login-form-item">
+            <mat-card>
+                <div class="login-item-container">
+                    <mat-form-field>
+                        <input matInput placeholder="Enter Email" [formControl]="email">
+                        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="login-item-container">
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Enter Password" [formControl]="password">
+                        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="login-item-container">
+                    <button mat-raised-button color="primary" (click)="login()">Login</button>
+                </div>
+                <div class="error-container margin-top-20" *ngIf="credError">
+                    <p>{{credErrorMsg}}</p>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

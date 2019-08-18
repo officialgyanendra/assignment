@@ -1,0 +1,125 @@
+<div class="mat-elevation-z6">
+    <nav class="docs-navbar-header">
+        <a class="docs-button mat-button" mat-button routerlink="/">
+            <span class="mat-button-wrapper">
+                <span class="assignment">Assignment</span>
+            </span>
+        </a>
+        <div class="search-wrap-nav">
+            <div class="search-wrap">
+                <input class="search" placeholder="Search User Through First Name, Last Name, Email Or Phone Number" type="text" name="search" [(ngModel)]="searchText" autocomplete="off">
+                <i class="fa fa-search"></i>
+            </div>
+        </div>
+        <div class="flex-spacer"></div>
+        <a class="docs-button mat-button" mat-button routerlink="/" (click)="logout()">
+            <span class="mat-button-wrapper">
+                <span>Logout</span>
+            </span>
+        </a>
+    </nav>
+</div>
+<div class="popup-container-wrap" *ngIf="showPopup">
+    <div class="background-overlay" (click)="closePopup()"></div>
+    <div class="popup">
+        <form id="userForm">
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="First Name" [formControl]="first_name">
+                    <mat-error *ngIf="email.invalid">{{getFristNameErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" [formControl]="last_name">
+                    <mat-error *ngIf="email.invalid">{{getLastNameErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="Email" [formControl]="email">
+                    <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="Phone Number" [formControl]="phone_number">
+                    <mat-error *ngIf="email.invalid">{{getPhoneErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <button mat-raised-button color="primary" (click)="saveUser()">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="popup-container-wrap" *ngIf="showEditPopup">
+    <div class="background-overlay" (click)="closeEditPopup()"></div>
+    <div class="popup">
+        <form id="userForm">
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="First Name" [formControl]="first_edit_name">
+                    <mat-error *ngIf="email.invalid">{{getFristEditNameErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" [formControl]="last_edit_name">
+                    <mat-error *ngIf="email.invalid">{{getLastEditNameErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="Email" [formControl]="edit_email">
+                    <mat-error *ngIf="email.invalid">{{getEmailEditErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <mat-form-field>
+                    <input matInput placeholder="Phone Number" [formControl]="edit_phone_number">
+                    <mat-error *ngIf="email.invalid">{{getPhoneEditErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="popup-item">
+                <button mat-raised-button color="primary" (click)="updateUser()">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+        <div class="table-heading">
+            <div class="clearfix">
+                <div class="right">
+                    <button mat-raised-button class="add-user add-button" (click)="openPopup()">Add</button>
+                </div>
+            </div>
+        </div>
+        <table class="table mat-table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of userData | filter:searchText; let i = index;">
+                    <td>{{item.first_name}}</td>
+                    <td>{{item.last_name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phone_number}}</td>
+                    <td class="table-item-responsive">
+                        <i class="fa fa-pencil actions pencile_action pointer " (click)="editUser(item, i)" aria-hidden="true"></i>
+                        <i class="fa fa-trash-o trash_action pointer " (click)="deleteUser(item, i)" aria-hidden="true"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
